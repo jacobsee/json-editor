@@ -1,8 +1,9 @@
 JSONEditor.defaults.editors.checkbox = JSONEditor.AbstractEditor.extend({
   setValue: function(value,initial) {
-    this.value = !!value;
+    this.value = (value===null||initial===null)?null:!!value;
     this.input.checked = this.value;
     this.onChange();
+    this.input.indeterminate = this.value===null;
   },
   register: function() {
     this._super();
@@ -36,7 +37,7 @@ JSONEditor.defaults.editors.checkbox = JSONEditor.AbstractEditor.extend({
     this.input.addEventListener('change',function(e) {
       e.preventDefault();
       e.stopPropagation();
-      self.value = this.checked;
+      self.value = this.indeterminate?null:this.checked;
       self.onChange(true);
     });
 

@@ -308,6 +308,10 @@ JSONEditor.AbstractEditor = Class.extend({
   },
   setValue: function(value) {
     this.value = value;
+    if((this.schema.type || this.schema.oneOf) == 'checkbox'){
+      if(this.value === null)
+        this.indeterminate = true;
+    }
   },
   getValue: function() {
     return this.value;
