@@ -44,6 +44,10 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
       group.appendChild(label);
       input.style.position = 'relative';
       input.style.cssFloat = 'left';
+      input.setAttribute('onclick', 'if (this.readOnly) this.checked=this.readOnly=false; else if (!this.checked) this.readOnly=this.indeterminate=true;');
+      if(input.value===null){
+        input.indeterminate = true;
+      }
     } 
     else {
       group.className += ' form-group';

@@ -2,6 +2,8 @@ JSONEditor.defaults.themes.bootstrap3_mobile = JSONEditor.AbstractTheme.extend({
   getSelectInput: function(options) {
     var el = this._super(options);
     el.className += 'form-control';
+    el.style.border = "thin dashed #b3b3b3";
+    el.style.display = "block";
     //el.style.width = 'auto';
     return el;
   },
@@ -65,12 +67,13 @@ JSONEditor.defaults.themes.bootstrap3_mobile = JSONEditor.AbstractTheme.extend({
       if(label) {
         label.className += ' control-label';
         label.style.fontSize = '16px';
-        label.style.backgroundColor = '#333333';
+        label.style.color = '#333333';
         group.appendChild(p);
         group.appendChild(label);
       }
       if(input.type === 'textbox' || input.type === 'text' || input.type === 'number' || input.type === 'textarea'){
         input.style.border = "thin dashed #b3b3b3";
+        input.style.display = "block !important";
         input.placeholder = "Tap here to enter information";
       }
       group.appendChild(p);

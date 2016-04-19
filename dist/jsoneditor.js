@@ -3117,7 +3117,7 @@ JSONEditor.defaults.editors.object = JSONEditor.AbstractEditor.extend({
         editor.setValue(value[i],initial);
       }
       // Otherwise, remove value unless this is the initial set or it's required
-      else if(!initial && !self.isRequired(editor)) {
+      else if(!initial && !self.jsoneditor.options.keep_empty_properties_by_default && !self.isRequired(editor)) {
         self.removeObjectProperty(i);
       }
       // Otherwise, set the value to the default
@@ -6624,6 +6624,10 @@ JSONEditor.defaults.themes.bootstrap3 = JSONEditor.AbstractTheme.extend({
       group.appendChild(label);
       input.style.position = 'relative';
       input.style.cssFloat = 'left';
+      input.setAttribute('onclick', 'if (this.readOnly) this.checked=this.readOnly=false; else if (!this.checked) this.readOnly=this.indeterminate=true;');
+      if(input.value===null){
+        input.indeterminate = true;
+      }
     } 
     else {
       group.className += ' form-group';
@@ -6752,6 +6756,8 @@ JSONEditor.defaults.themes.bootstrap3_mobile = JSONEditor.AbstractTheme.extend({
   getSelectInput: function(options) {
     var el = this._super(options);
     el.className += 'form-control';
+    el.style.border = "thin dashed #b3b3b3";
+    el.style.display = "block";
     //el.style.width = 'auto';
     return el;
   },
@@ -6815,12 +6821,13 @@ JSONEditor.defaults.themes.bootstrap3_mobile = JSONEditor.AbstractTheme.extend({
       if(label) {
         label.className += ' control-label';
         label.style.fontSize = '16px';
-        label.style.backgroundColor = '#333333';
+        label.style.color = '#333333';
         group.appendChild(p);
         group.appendChild(label);
       }
       if(input.type === 'textbox' || input.type === 'text' || input.type === 'number' || input.type === 'textarea'){
         input.style.border = "thin dashed #b3b3b3";
+        input.style.display = "block !important";
         input.placeholder = "Tap here to enter information";
       }
       group.appendChild(p);
